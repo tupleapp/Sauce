@@ -117,7 +117,7 @@ public enum Key {
     case upArrow
 
     // MARK: - Initiazlie
-    init?(character: String) {
+    public init?(character: String) {
         let lowercasedString = character.lowercased()
         switch lowercasedString {
         case "a": self = .a
