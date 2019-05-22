@@ -224,7 +224,7 @@ public enum Key {
         }
     }
 
-    init?(QWERTYKeyCode keyCode: Int) {
+    public init?(QWERTYKeyCode keyCode: Int) {
         switch keyCode {
         case kVK_ANSI_A: self = .a
         case kVK_ANSI_S: self = .s
