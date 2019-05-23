@@ -30,6 +30,7 @@ final class KeyboardLayout {
 
     // MARK: - Initialize
     init(distributedNotificationCenter: DistributedNotificationCenter = .default(), notificationCenter: NotificationCenter = .default) {
+        print("Initializing Sauce KeyboardLayout")
         self.distributedNotificationCenter = distributedNotificationCenter
         self.notificationCenter = notificationCenter
         self.currentInputSource = InputSource(source: TISCopyCurrentKeyboardInputSource().takeUnretainedValue())
@@ -81,6 +82,8 @@ extension KeyboardLayout {
 // MARK: - Notifications
 extension KeyboardLayout {
     private func observeNotifications() {
+        print("Setting up Sauce observers")
+
         distributedNotificationCenter.addObserver(self,
                                                   selector: #selector(selectedKeyboardInputSourceChanged),
                                                   name: NSNotification.Name(kTISNotifySelectedKeyboardInputSourceChanged as String),
@@ -92,6 +95,7 @@ extension KeyboardLayout {
     }
 
     @objc func selectedKeyboardInputSourceChanged() {
+        print("Sauce selectedKeyboardInputSourceChanged")
         let source = InputSource(source: TISCopyCurrentKeyboardInputSource().takeUnretainedValue())
         guard source != currentInputSource else { return }
         self.currentInputSource = source
@@ -100,6 +104,8 @@ extension KeyboardLayout {
     }
 
     @objc func enabledKeyboardInputSourcesChanged() {
+                print("Sauce enabledKeyboardInputSourcesChanged")
+
         fetchASCIICapableInputSources()
         notificationCenter.post(name: .SauceEnabledKeyboardInputSoucesChanged, object: nil)
     }
